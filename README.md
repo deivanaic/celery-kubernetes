@@ -30,5 +30,20 @@ USEFUL COMMANDS
 3. Kubectl exec -i -t <pod_name> - - bash
 4. Python3 -m test_celery.run_tasks
 
+TO-DO
+-----
+1. celery flower and celery beat - deploy in Kubernetes with a command and deployment type.
+2. Rediness and liveliness prob. - Need to check one thing, does kubernetes start the process automatically if it crashes
+this much should be fine...we don't need to define the liveliness check in that case
+and readiness is not needed in this case. 
+
+https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe
+https://github.com/celery/celery/issues/4079#issuecomment-810975088
+https://github.com/celery/celery/issues/4079#issuecomment-450679618
+
+
+
+
 
 
