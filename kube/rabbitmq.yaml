@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-deployment
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-deployment
+    spec:
+      containers:
+        - name: rabbitmq-deployment
+          image: rabbitmq
+          ports:
+            - containerPort: 5672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service
+spec:
+  selector:
+    app: rabbitmq-deployment
+  ports:
+    - port: 5672
+  type: LoadBalancer

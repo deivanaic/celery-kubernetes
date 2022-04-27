@@ -1,0 +1,9 @@
+FROM python:3.6-slim-buster
+ADD requirements.txt /app/requirements.txt
+ADD . /app/
+WORKDIR /app/
+RUN pip install -r requirements.txt
+
+# ENTRYPOINT celery -A test_celery.celery_poc worker --loglevel=info -Q ${QUEUE} -n {HOSTNAME}-{QUEUE}
+ENTRYPOINT ["/bin/bash", "test_celery/start.sh"]
+# RUN if [ "$QUEUE" = "Worker" ] ; then celery -A test_celery.celery_poc worker --loglevel=info -Q ${QUEUE} -n {HOSTNAME}-{QUEUE}; else echo "non-production"; fi

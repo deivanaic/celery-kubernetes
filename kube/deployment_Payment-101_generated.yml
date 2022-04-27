@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: celery-pod-payment
+  name: celery-pod-payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-pod-payment
+  template:
+    metadata:
+      labels:
+        app: celery-pod-payment
+    spec:
+      containers:
+      - env:
+        - name: QUEUE
+          value: Payment-101
+        - name: DEPLOYMENT_TYPE
+          value: Worker
+        - name: IMAGE
+          value: deiva2/celery-rabbitmq-poc:latest
+        image: deiva2/celery-rabbitmq-poc:latest
+        name: celery-pod-payment
+        resources:
+          limits:
+            cpu: 0.25
+            memory: 512Mi
+          requests:
+            cpu: 0.25
+            memory: 512Mi

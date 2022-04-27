@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: readiness
+  name: readiness-exec-1
+spec:
+  containers:
+  - name: readiness
+    image: deiva2/celery-rabbitmq-poc:latest
+    # args:
+    # - /bin/sh
+    # - -c
+    # - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    # livenessProbe:
+    #   exec:
+    #     command:
+    #     - cat
+    #     - /tmp/healthy
+    #   initialDelaySeconds: 5
+    #   periodSeconds: 5
+    readinessProbe:
+            exec:
+              command:
+                ["/usr/local/bin/python3",
+                 "-c",
+                 "import os;",
+                 "from celery.task.control import inspect;",
+                 "from test_celery.celery-poc import app;",
+                 "exit(0 if os.environ['HOSTNAME'] in ','.join(inspect(app=app).stats().keys()) else 1)"
+                ]
+            initialDelaySeconds: 5
+            periodSeconds: 5

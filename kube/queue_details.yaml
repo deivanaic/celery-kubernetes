@@ -1,0 +1,10 @@
+Payment-101:
+  no_of_workers: 1
+  image: deiva2/celery-rabbitmq-poc:latest
+  name: celery-pod-payment
+
+
+# FieldOps:
+#   no_of_workers: 1
+#   image: deiva2/celery-rabbitmq-poc:latest
+#   name: celery-pod-fieldops
